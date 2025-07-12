@@ -7,6 +7,7 @@ import br.com.alura.screenmatchSpring.Service.ConsumoApi;
 import br.com.alura.screenmatchSpring.Service.ConverteDados;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,10 +41,22 @@ public class Principal {
 //        for (int i = 0; i < dados.totalTemporadas(); i++){
 //            List<DadosEpisodio> episodiosTemporada = todasTemporadas.get(i).episodios();
 //            for (int j = 0; j < episodiosTemporada.size(); j++){
-//                System.out.println(episodiosTemporada.get(j).titulo());
+//              System.out.println(episodiosTemporada.get(j).titulo());
 //            }
 //        }
 
         todasTemporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
+
+        //streams
+        List <String> nomes = Arrays.asList("Jacque", "Iasmin", "Paulo", "Rodrigo", "Nico");
+
+        nomes.stream()
+                .sorted() //Ordena
+                .limit(3) //Limita a 3
+                .filter(n -> n.startsWith("N")) //Pega os nome que começa com N
+                .map(n -> n.toUpperCase()) //Transforma o nome em letra maiuscula
+                .forEach(System.out::println);
+
+
     }
 }
