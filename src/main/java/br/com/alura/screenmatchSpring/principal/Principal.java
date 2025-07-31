@@ -25,34 +25,45 @@ public class Principal {
 
     private final String API_KEY = "&apikey=6fad4aa1";
 
-    public void exibeMenu() {
-        var menu = """
-                1- Buscar Série
-                2 - Buscar episódio
-                
-                0 - sair
-                """;
-        System.out.println(menu);
-        var opcao = leitura.nextInt();
-        leitura.nextLine();
+    private List<DadosSerie> dadosSeries = new ArrayList<>();
 
-        switch (opcao) {
-            case 1:
-                buscarSerieWEB();
-                break;
-            case 2:
-                buscarEpisodioPorSerie();
-                break;
-            case 0:
-                System.out.println("Saindo...");
-                break;
-            default:
-                System.out.println("Opção invalida");
+    public void exibeMenu() {
+        var opcao = -1;
+
+        while (opcao != 0) {
+            var menu = """
+                    1 - Buscar Série
+                    2 - Buscar episódio
+                    3 - Listar Series
+                    
+                    0 - sair
+                    """;
+            System.out.println(menu);
+            opcao = leitura.nextInt();
+            leitura.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    buscarSerieWEB();
+                    break;
+                case 2:
+                    buscarEpisodioPorSerie();
+                    break;
+                case 3:
+                    listarSeriesBuscadas();
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção invalida");
+            }
         }
     }
 
     private void buscarSerieWEB(){
         DadosSerie dados = getDadosSerie();
+        dadosSeries.add(dados);
         System.out.println(dados);
     }
 
@@ -74,5 +85,9 @@ public class Principal {
             temporadas.add(dadosTemporada);
         }
         temporadas.forEach(System.out::println);
+    }
+
+    private void listarSeriesBuscadas(){
+        dadosSeries.forEach(System.out::println);
     }
 }
