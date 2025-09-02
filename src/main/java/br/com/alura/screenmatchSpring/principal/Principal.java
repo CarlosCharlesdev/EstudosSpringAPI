@@ -1,9 +1,6 @@
 package br.com.alura.screenmatchSpring.principal;
 
-import br.com.alura.screenmatchSpring.Model.DadosEpisodio;
-import br.com.alura.screenmatchSpring.Model.DadosSerie;
-import br.com.alura.screenmatchSpring.Model.DadosTemporada;
-import br.com.alura.screenmatchSpring.Model.Episodio;
+import br.com.alura.screenmatchSpring.Model.*;
 import br.com.alura.screenmatchSpring.Service.ConsumoApi;
 import br.com.alura.screenmatchSpring.Service.ConverteDados;
 import org.springframework.cglib.core.Local;
@@ -88,6 +85,13 @@ public class Principal {
     }
 
     private void listarSeriesBuscadas(){
-        dadosSeries.forEach(System.out::println);
+
+        List<Serie> series = new ArrayList<>();
+        series = dadosSeries.stream()
+                        .map(d -> new Serie(d))
+                                .collect(Collectors.toList());
+        series.stream()
+                .sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
     }
 }
