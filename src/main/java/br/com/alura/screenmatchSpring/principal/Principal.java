@@ -1,8 +1,10 @@
 package br.com.alura.screenmatchSpring.principal;
 
 import br.com.alura.screenmatchSpring.Model.*;
+import br.com.alura.screenmatchSpring.Repository.SerieRepository;
 import br.com.alura.screenmatchSpring.Service.ConsumoApi;
 import br.com.alura.screenmatchSpring.Service.ConverteDados;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,6 +25,12 @@ public class Principal {
     private final String API_KEY = "&apikey=6fad4aa1";
 
     private List<DadosSerie> dadosSeries = new ArrayList<>();
+
+    private SerieRepository repository;
+
+    public Principal(SerieRepository repository) {
+        this.repository = repository;
+    }
 
     public void exibeMenu() {
         var opcao = -1;
@@ -60,7 +68,9 @@ public class Principal {
 
     private void buscarSerieWEB(){
         DadosSerie dados = getDadosSerie();
-        dadosSeries.add(dados);
+        Serie serie = new Serie(dados);
+        //dadosSeries.add(dados);
+        repository.save(serie);
         System.out.println(dados);
     }
 
